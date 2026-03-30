@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+@theme {
+  --font-family-serif: Georgia, Cambria, serif;
+  --font-family-sans: Inter, system-ui, sans-serif;
+
+  --color-cream-50: #FDFBF7;
+  --color-cream-100: #FAF6ED;
+  --color-cream-200: #F5EDDB;
+
+  --color-gold-50: #FBF8F0;
+  --color-gold-100: #F3ECD6;
+  --color-gold-200: #E8D9AE;
+  --color-gold-300: #D4BA74;
+  --color-gold-400: #C4A44E;
+  --color-gold-500: #B8943A;
+  --color-gold-600: #9A7A2E;
+  --color-gold-700: #7A6024;
+  --color-gold-800: #5C481B;
+  --color-gold-900: #3E3012;
+
+  --color-charcoal-50: #F5F5F5;
+  --color-charcoal-100: #E5E5E5;
+  --color-charcoal-200: #CCCCCC;
+  --color-charcoal-300: #999999;
+  --color-charcoal-400: #666666;
+  --color-charcoal-500: #4A4A4A;
+  --color-charcoal-600: #333333;
+  --color-charcoal-700: #2A2A2A;
+  --color-charcoal-800: #1A1A1A;
+  --color-charcoal-900: #0D0D0D;
+
+  --color-sage-50: #F4F7F4;
+  --color-sage-100: #E8EFE8;
+  --color-sage-200: #D1DFD1;
+  --color-sage-300: #A8BFA8;
+  --color-sage-400: #7F9F7F;
+  --color-sage-500: #5C805C;
+
+  --color-blush-50: #FDF5F3;
+  --color-blush-100: #FAE8E3;
+  --color-blush-200: #F5D0C7;
+  --color-blush-300: #EDAFA0;
+
+  --color-navy-700: #1B2A4A;
+  --color-navy-800: #142038;
+  --color-navy-900: #0D1626;
+}
+
+@layer base {
+  body {
+    @apply bg-cream-50 text-charcoal-700 font-sans antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-white rounded-xl border border-cream-200 shadow-sm;
+  }
+
+  .card-hover {
+    @apply bg-white rounded-xl border border-cream-200 shadow-sm transition-all duration-200 hover:shadow-md hover:border-gold-200;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-charcoal-800 text-white rounded-lg font-medium text-sm transition-all duration-200 hover:bg-charcoal-700 active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white text-charcoal-700 border border-charcoal-200 rounded-lg font-medium text-sm transition-all duration-200 hover:bg-cream-100 active:scale-[0.98];
+  }
+
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-gold-500 text-white rounded-lg font-medium text-sm transition-all duration-200 hover:bg-gold-600 active:scale-[0.98];
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-3 py-2 text-charcoal-500 rounded-lg text-sm transition-all duration-200 hover:bg-cream-100 hover:text-charcoal-700;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-2.5 bg-white border border-charcoal-200 rounded-lg text-sm text-charcoal-700 placeholder:text-charcoal-300 focus:outline-none focus:ring-2 focus:ring-gold-300 focus:border-gold-400 transition-all duration-200;
+  }
+
+  .select-field {
+    @apply w-full px-4 py-2.5 bg-white border border-charcoal-200 rounded-lg text-sm text-charcoal-700 placeholder:text-charcoal-300 focus:outline-none focus:ring-2 focus:ring-gold-300 focus:border-gold-400 transition-all duration-200 appearance-none pr-10;
+    background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20fill%3D%22none%22%3E%3Cpath%20stroke%3D%22%23999%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%221.5%22%20d%3D%22m6%208%204%204%204-4%22%2F%3E%3C%2Fsvg%3E');
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .label {
+    @apply block text-sm font-medium text-charcoal-600 mb-1.5;
+  }
+
+  .stat-value {
+    @apply text-2xl font-serif font-bold text-charcoal-800;
+  }
+
+  .stat-label {
+    @apply text-xs font-medium text-charcoal-400 uppercase tracking-wider;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-charcoal-200);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-charcoal-300);
+}
