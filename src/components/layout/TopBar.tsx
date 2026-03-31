@@ -1,10 +1,15 @@
 "use client";
 
+import { useMemo } from "react";
 import { Bell, Search, Menu } from "lucide-react";
 import { useStore } from "@/store";
 
 export function TopBar() {
-  const unread = useStore((s) => s.getUnreadNotifications());
+  const notifications = useStore((s) => s.notifications);
+  const unreadCount = useMemo(
+    () => notifications.filter((n) => !n.read && !n.dismissed).length,
+    [notifications]
+  );
 
   return (
     <header className="h-16 bg-white border-b border-cream-200 flex items-center justify-between px-6 lg:px-8 flex-shrink-0">
@@ -25,9 +30,9 @@ export function TopBar() {
       <div className="flex items-center gap-3">
         <a href="/notifications" className="relative btn-ghost">
           <Bell className="w-5 h-5" />
-          {unread.length > 0 && (
+          {unreadCount > 0 && (
             <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
-              {unread.length}
+              {unreadCount}
             </span>
           )}
         </a>

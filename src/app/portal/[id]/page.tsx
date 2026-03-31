@@ -9,14 +9,21 @@ import { STAGE_LABELS, PIPELINE_STAGES } from "@/types";
 import {
   Home, Eye, ShoppingBag, DollarSign, Layers, CheckCircle, Clock,
 } from "lucide-react";
+import { useMemo } from "react";
 
 export default function ClientPortalPage() {
   const { id } = useParams<{ id: string }>();
-  const project = useStore((s) => s.getProjectById(id));
-  const client = useStore((s) => project ? s.getClientById(project.clientId) : undefined);
-  const materials = useStore((s) => s.getMaterialsByProject(id));
-  const budgetItems = useStore((s) => s.getBudgetByProject(id));
-  const activities = useStore((s) => s.activities.filter((a) => a.projectId === id));
+  const allProjects = useStore((s) => s.projects);
+  const allClients = useStore((s) => s.clients);
+  const allMaterials = useStore((s) => s.materials);
+  const allBudgetItems = useStore((s) => s.budgetItems);
+  const allActivities = useStore((s) => s.activities);
+
+  const project = useMemo(() => allProjects.find((p) => p.id === id), [allProjects, id]);
+  const client = useMemo(() => project ? allClients.find((c) => c.id === project.clientId) : undefined, [allClients, project]);
+  const materials = useMemo(() => allMaterials.filter((m) => m.projectId === id), [allMaterials, id]);
+  const budgetItems = useMemo(() => allBudgetItems.filter((b) => b.projectId === id), [allBudgetItems, id]);
+  const activities = useMemo(() => allActivities.filter((a) => a.projectId === id), [allActivities, id]);
 
   if (!project || !client) {
     return (

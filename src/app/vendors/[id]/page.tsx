@@ -9,11 +9,15 @@ import {
   CheckCircle, XCircle,
 } from "lucide-react";
 import Link from "next/link";
+import { useMemo } from "react";
 
 export default function VendorDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const vendor = useStore((s) => s.getVendorById(id));
-  const quotes = useStore((s) => s.vendorQuotes.filter((q) => q.vendorId === id));
+  const allVendors = useStore((s) => s.vendors);
+  const allQuotes = useStore((s) => s.vendorQuotes);
+
+  const vendor = useMemo(() => allVendors.find((v) => v.id === id), [allVendors, id]);
+  const quotes = useMemo(() => allQuotes.filter((q) => q.vendorId === id), [allQuotes, id]);
 
   if (!vendor) {
     return (

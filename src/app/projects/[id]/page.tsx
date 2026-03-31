@@ -16,19 +16,26 @@ import {
   CheckCircle, Layers, GitCompare,
 } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 export default function ProjectDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const project = useStore((s) => s.getProjectById(id));
-  const client = useStore((s) => project ? s.getClientById(project.clientId) : undefined);
-  const budgetItems = useStore((s) => s.getBudgetByProject(id));
-  const materials = useStore((s) => s.getMaterialsByProject(id));
-  const quotes = useStore((s) => s.getQuotesByProject(id));
-  const invoices = useStore((s) => s.getInvoicesByProject(id));
+  const allProjects = useStore((s) => s.projects);
+  const allClients = useStore((s) => s.clients);
+  const allBudgetItems = useStore((s) => s.budgetItems);
+  const allMaterials = useStore((s) => s.materials);
+  const allQuotes = useStore((s) => s.vendorQuotes);
+  const allInvoices = useStore((s) => s.invoices);
   const selectQuote = useStore((s) => s.selectQuote);
   const approveMaterial = useStore((s) => s.approveMaterial);
   const moveStage = useStore((s) => s.moveProjectStage);
+
+  const project = useMemo(() => allProjects.find((p) => p.id === id), [allProjects, id]);
+  const client = useMemo(() => project ? allClients.find((c) => c.id === project.clientId) : undefined, [allClients, project]);
+  const budgetItems = useMemo(() => allBudgetItems.filter((b) => b.projectId === id), [allBudgetItems, id]);
+  const materials = useMemo(() => allMaterials.filter((m) => m.projectId === id), [allMaterials, id]);
+  const quotes = useMemo(() => allQuotes.filter((q) => q.projectId === id), [allQuotes, id]);
+  const invoices = useMemo(() => allInvoices.filter((i) => i.projectId === id), [allInvoices, id]);
 
   const [activeTab, setActiveTab] = useState<"overview" | "materials" | "quotes" | "budget">("overview");
 

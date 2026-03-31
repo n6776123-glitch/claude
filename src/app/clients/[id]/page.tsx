@@ -12,13 +12,19 @@ import {
   FolderKanban, Receipt, FileText,
 } from "lucide-react";
 import Link from "next/link";
+import { useMemo } from "react";
 
 export default function ClientDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const client = useStore((s) => s.getClientById(id));
-  const projects = useStore((s) => s.getProjectsByClient(id));
-  const invoices = useStore((s) => s.invoices.filter((i) => i.clientId === id));
-  const activities = useStore((s) => s.activities.filter((a) => a.clientId === id));
+  const allClients = useStore((s) => s.clients);
+  const allProjects = useStore((s) => s.projects);
+  const allInvoices = useStore((s) => s.invoices);
+  const allActivities = useStore((s) => s.activities);
+
+  const client = useMemo(() => allClients.find((c) => c.id === id), [allClients, id]);
+  const projects = useMemo(() => allProjects.filter((p) => p.clientId === id), [allProjects, id]);
+  const invoices = useMemo(() => allInvoices.filter((i) => i.clientId === id), [allInvoices, id]);
+  const activities = useMemo(() => allActivities.filter((a) => a.clientId === id), [allActivities, id]);
 
   if (!client) {
     return (
