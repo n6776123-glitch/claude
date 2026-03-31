@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 const navigation = [
   { name: "Dashboard", href: "/", icon: LayoutDashboard },
   { name: "Clients", href: "/clients", icon: Users },
-  { name: "Projects", href: "/", icon: FolderKanban, badge: "Pipeline" },
+  { name: "Projects", href: "/projects", icon: FolderKanban },
   { name: "Vendors", href: "/vendors", icon: Building2 },
   { name: "Finances", href: "/finances", icon: Receipt },
   { name: "Questionnaires", href: "/questionnaire/new", icon: ClipboardList },
@@ -59,11 +59,6 @@ export function Sidebar() {
             >
               <item.icon className="w-5 h-5 flex-shrink-0" />
               {item.name}
-              {item.badge && (
-                <span className="ml-auto text-[10px] bg-gold-500/30 text-gold-200 px-2 py-0.5 rounded-full">
-                  {item.badge}
-                </span>
-              )}
             </Link>
           );
         })}
